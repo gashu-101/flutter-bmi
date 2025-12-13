@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:bmi/theme_provider.dart';
 
 class RoundIconButton extends StatelessWidget {
   RoundIconButton({required this.icon, required this.onPressed});
@@ -8,6 +10,7 @@ class RoundIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return RawMaterialButton(
       elevation: 0.0,
       child: Icon(icon),
@@ -17,7 +20,7 @@ class RoundIconButton extends StatelessWidget {
         height: 56.0,
       ),
       shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
+      fillColor: themeProvider.roundIconButtonColor,
     );
   }
 }

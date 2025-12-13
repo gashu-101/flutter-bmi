@@ -7,6 +7,8 @@ import 'package:bmi/screens/results_page.dart';
 import 'package:bmi/components/bottom_button.dart';
 import 'package:bmi/components/round_icon_button.dart';
 import 'package:bmi/calculator_brain.dart';
+import 'package:provider/provider.dart';
+import 'package:bmi/theme_provider.dart';
 
 enum Gender {
   male,
@@ -26,9 +28,21 @@ class _InputPageState extends State<InputPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('BMI CALCULATOR'),
+        actions: [
+          IconButton(
+            icon: Icon(themeProvider.isDarkMode
+                ? Icons.light_mode
+                : Icons.dark_mode),
+            onPressed: () {
+              themeProvider.toggleTheme();
+            },
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -44,8 +58,8 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     colour: selectedGender == Gender.male
-                        ? kActiveCardColour
-                        : kInactiveCardColour,
+                        ? themeProvider.activeCardColor
+                        : themeProvider.inactiveCardColor,
                     cardChild: IconContent(
                       icon: FontAwesomeIcons.mars,
                       label: 'MALE',
@@ -60,8 +74,8 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     colour: selectedGender == Gender.female
-                        ? kActiveCardColour
-                        : kInactiveCardColour,
+                        ? themeProvider.activeCardColor
+                        : themeProvider.inactiveCardColor,
                     cardChild: IconContent(
                       icon: FontAwesomeIcons.venus,
                       label: 'FEMALE',
@@ -73,13 +87,13 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: ReusableCard(
-              colour: kActiveCardColour,
+              colour: themeProvider.activeCardColor,
               cardChild: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     'HEIGHT',
-                    style: kLabelTextStyle,
+                    style: kLabelTextStyle.copyWith(color: themeProvider.labelTextColor),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -92,14 +106,14 @@ class _InputPageState extends State<InputPage> {
                       ),
                       Text(
                         'cm',
-                        style: kLabelTextStyle,
+                        style: kLabelTextStyle.copyWith(color: themeProvider.labelTextColor),
                       )
                     ],
                   ),
                   SliderTheme(
                     data: SliderTheme.of(context).copyWith(
-                      inactiveTrackColor: Color(0xFF8D8E98),
-                      activeTrackColor: Colors.white,
+                      inactiveTrackColor: themeProvider.sliderInactiveTrackColor,
+                      activeTrackColor: themeProvider.sliderActiveTrackColor,
                       thumbColor: Color(0xFFEB1555),
                       overlayColor: Color(0x29EB1555),
                       thumbShape:
@@ -127,13 +141,13 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 Expanded(
                   child: ReusableCard(
-                    colour: kActiveCardColour,
+                    colour: themeProvider.activeCardColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
                           'WEIGHT',
-                          style: kLabelTextStyle,
+                          style: kLabelTextStyle.copyWith(color: themeProvider.labelTextColor),
                         ),
                         Text(
                           weight.toString(),
@@ -168,13 +182,13 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   child: ReusableCard(
-                    colour: kActiveCardColour,
+                    colour: themeProvider.activeCardColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
                           'AGE',
-                          style: kLabelTextStyle,
+                          style: kLabelTextStyle.copyWith(color: themeProvider.labelTextColor),
                         ),
                         Text(
                           age.toString(),

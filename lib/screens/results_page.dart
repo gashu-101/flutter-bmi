@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:bmi/constants.dart';
 import 'package:bmi/components/reusable_card.dart';
 import 'package:bmi/components/bottom_button.dart';
+import 'package:provider/provider.dart';
+import 'package:bmi/theme_provider.dart';
 
 class ResultsPage extends StatelessWidget {
   ResultsPage(
@@ -15,6 +17,7 @@ class ResultsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('BMI CALCULATOR'),
@@ -36,7 +39,7 @@ class ResultsPage extends StatelessWidget {
           Expanded(
             flex: 5,
             child: ReusableCard(
-              colour: kActiveCardColour,
+              colour: themeProvider.activeCardColor,
               cardChild: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,

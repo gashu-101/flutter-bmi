@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bmi/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:bmi/theme_provider.dart';
 
 class IconContent extends StatelessWidget {
   IconContent({required this.icon, required this.label});
@@ -9,6 +11,7 @@ class IconContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -21,7 +24,7 @@ class IconContent extends StatelessWidget {
         ),
         Text(
           label,
-          style: kLabelTextStyle,
+          style: kLabelTextStyle.copyWith(color: themeProvider.labelTextColor),
         )
       ],
     );
